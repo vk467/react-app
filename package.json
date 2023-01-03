@@ -1,0 +1,14 @@
+{
+  "name": "react-app",
+  "version": "1.0.0",
+  "description": "React Course",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "vk",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.8.2"
+  }
+}
