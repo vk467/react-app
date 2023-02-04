@@ -52,7 +52,7 @@ If we wanna have multiple div, we can wrap it with React.Fragment tag. \
 <> </> empty tags is a representation of React.Fragment 
 
 
-**JSX components:**  \
+**JSX components:**  
 * JSX -> React.CreateElement -> Object -> HTML(DOM) 
 * JSX is html like syntax which is returned from functions in js 
 * We can include js code among jsx using {}
@@ -107,17 +107,17 @@ import * as obj from './Title';
 **Important case:** \
 useEffect(async () => { \
   const users = await fetchUsers(); \
-  setUsers(users); \
+  setUsers(users); 
 
   return () => { \
     // this never gets called, hello memory leaks... \
   }; \
-}, []); \
+}, []); 
 
-This WORKS, but you should avoid it. Why? Because React’s useEffect hook expects a cleanup function returned from it which is called when the component unmounts. Using an async function here will cause a bug as the cleanup function will never get called. \
+This WORKS, but you should avoid it. Why? Because React’s useEffect hook expects a cleanup function returned from it which is called when the component unmounts. Using an async function here will cause a bug as the cleanup function will never get called. 
 
 So what do we do? \
-*Solution* : Simply put, we should use an async function inside the useEffect hook. There are two patterns you could use, an immediately-invoked function expression (preferred approach), or a named function that you invoke. \
+*Solution* : Simply put, we should use an async function inside the useEffect hook. There are two patterns you could use, an immediately-invoked function expression (preferred approach), or a named function that you invoke. 
 
 
 ## Routing
@@ -125,11 +125,13 @@ So what do we do? \
 1. **Client Side Routing** - client side does not need to keep make request to the server, it just does it once when the application is being loaded into the browser any other navigation or page change is just being rendered from the already saved application, so a client side application can still function without the internet as long as it has already being loaded in with the internet.
 2. **Server Side Routing** - server sides needs to keep making requests to the server in order for the application to rerender
 
-=> React uses react-router-dom to manage routes.\
+=> React uses functions from **react-router-dom** to manage routes.\
 => createBrowserRouter - a function used to create routes based on given list of objects(path, element, errorelement).\
 => RouterProvider - a component accepts router props which is to be used in root render function.\ 
 => Outlet - a component acts as container for children elements defined in react router. \
-=> Link - a component used to route to defined path with props "to" and "key".
+=> Link - a component used to route to defined path with props "to" and "key". \
+=> useParams - a hook used to get params passed in route.(To read dynamic URL Params) \
+=> useRouteError - a hook used to get errors while routing.
 
 *Dynamic routing* - path: /user/:id
 
@@ -154,7 +156,7 @@ full of content data takes more than 3- 5 seconds to load.
 * **Lifecycle methods in execution order**:- constructor, render, componentDidMount
 * In componentDidMount, API calls will be made.
 
-=> Lifecycle \
+=> Lifecycle 
  * Parent Constructor
  * Parent render
  * First Child constructor
@@ -166,7 +168,16 @@ full of content data takes more than 3- 5 seconds to load.
  * Second Child componentDid
  * Parent componentDidMount
 
+=> React class component Lifecycle:
+1. Render Phase
+2. Commit Phase
  ![React LifeCycle](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/ogimage.png)
 
 
+#### Optimizing Application
 
+* Chunking or Dynamic Bundling or Lazy Loading or On-Demand Loading or Dynamic Import
+
+=> uses **lazy(from react)** function which accepts a function param where we can call import fn with filepath in param.\
+=> In route component, use **Suspense(from react)** component over our lazy component. (Because the lazy loading will take some fraction of seconds to load from net)\
+=> Suspense accepts *fallback* props where we can give any component that will show in UI until lazy component loads.

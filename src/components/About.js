@@ -1,4 +1,3 @@
-import { Outlet } from "react-router-dom";
 import ProfileFunctionalComponet from "./Profile";
 import Profile from "./ProfileClass";
 import { Component } from "react";
@@ -19,9 +18,9 @@ class About extends Component {
       <div>
         <h1>About Us Page</h1>
         <p>
-          Food Villa, Bangalore 🚀
+          This is the Namaste React Live Course Chapter 07 - Finding the Path 🚀
         </p>
-        <ProfileFunctionalComponet name="VK" />
+        <Profile />
       </div>
     );
   }
