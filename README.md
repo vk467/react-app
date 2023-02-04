@@ -52,12 +52,14 @@ If we wanna have multiple div, we can wrap it with React.Fragment tag. \
 <> </> empty tags is a representation of React.Fragment 
 
 
-**JSX components:** 
-    * JSX -> React.CreateElement -> Object -> HTML(DOM) \
-    * Babel converts JSX to React element \
-    * component composition = using one component in another component
+**JSX components:**  \
+* JSX -> React.CreateElement -> Object -> HTML(DOM) 
+* JSX is html like syntax which is returned from functions in js 
+* We can include js code among jsx using {}
+* Babel converts JSX to React element 
+* component composition = using one component in another component
 
-*JS Operators:* 
+*JS Operators:*  \
  ... spread operator \
  ?.  Optional chaining \
  forEach -> similar to the for loop, but it does not have a return value. \
@@ -91,14 +93,31 @@ import * as obj from './Title';
 
 ## React Hooks 
 
-1. useState()  --> accepts any input as a param; returns a list of variable and setter function for that variable. 
+1. **useState()**  --> accepts any input as a param; returns a list of variable and setter function for that variable. 
 
-2. useEffect(callback fn, dependency array)  --> It is called everytime after a component is rendered for first time or re-rendered based on second param(Optional). \
+2. **useEffect(callback fn, dependency array)**  --> callback fn is called everytime after a component is rendered for first time or re-rendered based on second param(Optional). \
 * If we don't pass second param, it is called everytime after a component re-renders.
 * If we pass [] as second param, it will be called only one time.
-* If we pass any state as list in second param, it will be called everytime when state changes. 
+* If we pass any state as list in second param, it will be called everytime when state changes.
+
+* callback fn can have return function which will be called when the component unmounts (similar to componentWillUnmount)
 
 *Note:* A component re-renders when state of variable or params changes. 
+
+**Important case:** \
+useEffect(async () => { \
+  const users = await fetchUsers(); \
+  setUsers(users); \
+
+  return () => { \
+    // this never gets called, hello memory leaks... \
+  }; \
+}, []); \
+
+This WORKS, but you should avoid it. Why? Because React’s useEffect hook expects a cleanup function returned from it which is called when the component unmounts. Using an async function here will cause a bug as the cleanup function will never get called. \
+
+So what do we do? \
+*Solution* : Simply put, we should use an async function inside the useEffect hook. There are two patterns you could use, an immediately-invoked function expression (preferred approach), or a named function that you invoke. \
 
 
 ## Routing
@@ -112,26 +131,42 @@ import * as obj from './Title';
 => Outlet - a component acts as container for children elements defined in react router. \
 => Link - a component used to route to defined path with props "to" and "key".
 
-Dynamic routing - path: /user/:id
+*Dynamic routing* - path: /user/:id
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-###### Shimmer UI
+#### Shimmer UI
 
 A shimmer Ul resembles the page's actual UI, so users will understand how quickly
 the web or mobile app will load even before the content has shown up. It gives people
 an idea of what about to come and what's happening (it's currently loading) when a page
 full of content data takes more than 3- 5 seconds to load. 
+
+
+
+## Class based component
+
+* class must be inherited from React.Component (extends)
+* class uses render() method - inside that jsx element can be returned
+* props can be used `this.props`
+* constructor must include *super(props)* - If you want to implement the constructor for a React component, call the super(props) method before any other statement. Otherwise, this. props will be undefined in the constructor and create bugs.
+* constructor is used to create states with help of *this.state* = {variables}
+* To update states, *this.setState*({new variables}) method is used.
+* **Lifecycle methods in execution order**:- constructor, render, componentDidMount
+* In componentDidMount, API calls will be made.
+
+=> Lifecycle \
+ * Parent Constructor
+ * Parent render
+ * First Child constructor
+ * First Child render
+ * Second Child constructor
+ * Second Child render
+ * DOM UPDATED for children
+ * first Child componentDidMount
+ * Second Child componentDid
+ * Parent componentDidMount
+
+ ![React LifeCycle](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/ogimage.png)
+
 
 
