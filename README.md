@@ -181,3 +181,14 @@ full of content data takes more than 3- 5 seconds to load.
 => uses **lazy(from react)** function which accepts a function param where we can call import fn with filepath in param.\
 => In route component, use **Suspense(from react)** component over our lazy component. (Because the lazy loading will take some fraction of seconds to load from net)\
 => Suspense accepts *fallback* props where we can give any component that will show in UI until lazy component loads.
+
+
+#### Data Layer
+
+* When we sent a data from route to child most component, we use props to go through in between components.
+* In order to directly use, we can use **createContext** function from react. It acts as global storage across components.
+* **useContext(context name)** hook is used to fetch the data stored using createContext function
+* while creating context with name "customContext", we can give customContext.displayName = "customContext" in order to identify it in virtual dom.
+* customContext.Provider and customContext.Consumer will be used as components to manage data.
+
+
