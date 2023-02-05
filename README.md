@@ -185,10 +185,25 @@ full of content data takes more than 3- 5 seconds to load.
 
 #### Data Layer
 
-* When we sent a data from route to child most component, we use props to go through in between components.
-* In order to directly use, we can use **createContext** function from react. It acts as global storage across components.
-* **useContext(context name)** hook is used to fetch the data stored using createContext function
+* *Prop drilling* is a situation where data is passed from one component through multiple interdependent components until you get to the component where the data is needed. i.e. When we sent a data from route to child most component, we use props to go through in between components
+* In order to avoid prop drilling, we can use **createContext** function from react(Context API). It acts as global storage across components.
+* This context is provided in parent component using customContext.Provider with value={Object} as props.
+* **useContext(context name)** hook is used to fetch the data stored using createContext function.
 * while creating context with name "customContext", we can give customContext.displayName = "customContext" in order to identify it in virtual dom.
 * customContext.Provider and customContext.Consumer will be used as components to manage data.
 
 
+# Redux
+
+=> Used to manage data in data layer. \
+=> Redux store can be split into multiple slices based on requirement. \
+=> To write in redux: UI event -> dispatches an action -> calls reducer function -> updates the slice of redux store. \
+=> To read from redux: UI component -> calls selector(is a hook which subscribe the slice) -> slice of store. (updates UI automatically when slice is updated)
+
+#### Redux Toolkit (RTK)
+
+* Advanced version of redux to avoid cons in redux(configuration complexity, depends on lot of packages, too much boilerplate code)
+* **configureStore({})** function from rtk is used to create store.
+* **createSlice({})** function from rtk is used to create slice.
+* To provide store to components, **Provider** component is used from 'react-redux' which accepts store as props.
+* useDispatch() -write, useSelector()-read Hooks are used from 'react-redux'.
